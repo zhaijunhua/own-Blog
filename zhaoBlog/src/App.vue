@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <blog/>
   </div>
 </template>
 
 <script>
+import blog from './components/blog/index.vue';
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    blog
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
+$background: #fcfcff;
+body{
+  background: $background;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
