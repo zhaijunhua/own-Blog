@@ -6,9 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import './assets/css/common.css'
+import vueInfiniteScroll from 'vue-infinite-scroll';
 
 Vue.config.productionTip = false
+// 使用element-ui
 Vue.use(ElementUI)
+Vue.use(vueInfiniteScroll)
 Vue.prototype.$axios = axios
 /* eslint-disable no-new */
 new Vue({

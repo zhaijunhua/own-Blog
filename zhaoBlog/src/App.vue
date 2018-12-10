@@ -1,30 +1,33 @@
 <template>
   <div id="app">
-    <blog/>
+    <topBar/>
+    <div id="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 import blog from './components/blog/index.vue';
+import topBar from './components/nav/index.vue';
 export default {
   name: 'App',
   components: {
-    blog
+    blog,
+    topBar
   }
 }
 </script>
 
 <style lang="scss">
-$background: #fcfcff;
-body{
-  background: $background;
-}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  position: absolute;
+  margin: 0 auto;
+  height: 100%;
+  #container{
+    width: 80%;
+    margin: 20px auto;
+  }
 }
 </style>

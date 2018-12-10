@@ -19,9 +19,16 @@ mongoose.connection.on("disconnected", function() {
 
 //实现路由,next 继续往后执行
 router.get("/", function(req,res,next) {
+    var page = req.param('page');
+    let pageSize = parseInt(req.param('pageSize'));   // 下面的LIMIT必须是数字，在这里返回的是字符串，所以需要进行转换
+    var sort = req.param('sort');   // 获取前端的参数
+    let skip = (page-1) * pageSize;
+    let params = {};
+    let blogsList = Blog.find(params).skip(params).skip(skip).limit(pageSize);
+    blogsList.sort({'blogId': sort});  // 1是升序，-1是降序
     // 业务代码
     // 查找数据
-    Blog.find({}, function(err,doc) {
+    blogsList.exec({}, function(err,doc) {
         if(err) {
             res.json({
                 status: '0',
