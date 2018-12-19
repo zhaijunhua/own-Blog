@@ -1,8 +1,11 @@
 <template>
     <div class="my-sentence">
+        <div>
+            <el-button @click="sortSentence('2')">中文</el-button>
+        </div>
         <div v-for="item in sentenceMessage" :key="item.sentenceId">
-        <h1>{{item.sentenceContenet}}</h1>
-        <h6>{{item.author}}</h6>
+            <h2>{{item.sentenceContenet}}</h2>
+            <h5>--{{item.author}}</h5>
         </div>
     </div>
 </template>
@@ -11,15 +14,20 @@ export default {
     name: 'sentence',
     data() {
         return {
-            sentenceMessage: []
+            sentenceMessage: [],
+            cate: ''
         };
     },
     mounted() {
-        this.getSentence();
     },
     methods: {
         getSentence() {
-            this.$axios.get('api/sentences')
+            var param = {
+                cate: this.cate
+
+            }
+            console.log(param)
+            this.$axios.get('api/sentences',{param})
                 .then((res) => {
                     console.log(res.data.result);
                     let responseData = res.data.result;
@@ -29,6 +37,10 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 })
+        },
+        sortSentence(index) {
+            this.cate = index;
+            this.getSentence();
         }
     }
 }
