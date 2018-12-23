@@ -5,12 +5,11 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var ejs = require('ejs');
 var app = express();
-
+var users = require('./routes/users');
 var blogs = require('./routes/blogs');
 var sentences = require('./routes/sentences');
 // all environments
@@ -28,13 +27,14 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/blogs',blogs);
 app.use('/sentences', sentences);
+app.use('/users', users);
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/users', users);
 app.get('/blogs',blogs);
 app.get('/sentences', sentences)
 
