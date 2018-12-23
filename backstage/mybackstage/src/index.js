@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import Demo from './pages/logoin/Demo';
 import * as serviceWorker from './serviceWorker';
+import {DatePicker} from 'antd';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(<Demo />, document.getElementById('root'));
 
