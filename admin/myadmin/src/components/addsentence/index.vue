@@ -1,0 +1,68 @@
+<template>
+    <div class="add">
+        <div>
+            <div class="authorName">
+                <el-input v-model="author"></el-input>
+            </div>
+            
+            <div>
+                <el-radio-group v-model="cate">
+                    <el-radio :label="1">中文</el-radio>
+                    <el-radio :label="2">英文</el-radio>
+                </el-radio-group>
+
+                <el-input type="textarea" v-model="sentenceContent" placeholder="请输入内容"></el-input>
+                <el-input type="textarea" v-model="translate" placeholder="请翻译"></el-input>
+            </div>
+            <el-button @click="insertSentence">添加</el-button>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    name: 'addsentence',
+    data() {
+        return {
+            sentenceContent: '',
+            author: '',
+            cate: '',
+            translate: ''
+        };
+    },
+    methods: {
+        insertSentence() {
+            if (this.sentenceContent === '' || this.author === '') {
+                alert("句子内容内容不能为空");
+            } else {
+                console.log(this.cate);
+                this.$axios.post('/api/sentences/addSentence', {
+                    sentenceContent: this.sentenceContent,
+                    translate: this.translate,
+                    author: this.author,
+                    category: this.cate,
+                    addTime: new Date()
+                })
+                .then((response) => {
+                    let res = response.data;
+                    console.log("sccessa");
+                    if (res.status === '1') {
+                       console.log('success');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error + 'error');
+                });    
+            }
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+.add{
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    vertical-align: middle;
+}
+</style>
+

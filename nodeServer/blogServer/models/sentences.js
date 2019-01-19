@@ -2,10 +2,11 @@ var mongoose = require('mongoose'); // 引入数据库
 var Schema = mongoose.Schema;
 
 var sentencesSchema = new Schema({
-    'sentenceId': Number,
     'sentenceContenet': String,
+    'translate': String,
     'author': String,
-    'readTime': String
+    'category': String,
+    'addTime': Date
 },{
     collection: 'sentences'
 });

@@ -6,7 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
-import vueInfiniteScroll from 'vue-infinite-scroll';
+import vueInfiniteScroll from 'vue-infinite-scroll'
 import axios from 'axios'
 
 Vue.config.productionTip = false

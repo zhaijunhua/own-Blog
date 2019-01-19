@@ -16,6 +16,28 @@ mongoose.connection.on("disconnected", function() {
     console.log("MongoDB connect disconnected");
 });
 
+routers.post('/addSentence', function(req, res) {
+    let newSentence = new Sentence({
+        sentenceContenet: req.body.sentenceContent,
+        translate: req.body.translate,
+        author: req.body.author,
+        category: req.body.category,
+        addTime: req.body.addTime ? new Date():new Date(parseInt(req.body.date))
+    });
+    newSentence.save(function(err, doc) {
+        if (err) {
+            return res.json({
+                status: '0',
+                msg: err.message
+            });
+        } 
+        res.json({
+            status: '1',
+            msg: 'success',
+            data: doc
+        });
+    });
+});
 routers.get('/', function(req,res, next) {
     var cate = req.query.cate;
     // 进行判断
@@ -40,7 +62,7 @@ routers.get('/', function(req,res, next) {
         } else {
             res.json({
                 status: 1,
-                mag: 'success GET',
+                msg: 'success GET',
                 result: {
                     count: doc.length,
                     list: doc
@@ -48,6 +70,6 @@ routers.get('/', function(req,res, next) {
             })
         }
     })
-})
+});
 
 module.exports = routers;

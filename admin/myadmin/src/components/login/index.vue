@@ -3,17 +3,22 @@
         <div class="enter">
             <h1>欢迎登录管理系统</h1>
             <el-form :model="loginForm" :rules="rule2" ref="loginForm">
-                <el-form-item  prop="userName" class="item">
+                <el-form-item  
+                    prop="userName" 
+                    class="item"
+                    :rules="[{required:true, message:'密码不能为空', trigger: 'blur'}]">
                     <span>账号</span>
                     <el-input v-model="loginForm.userName"></el-input>
                 </el-form-item>
-               <el-form-item prop="pass">
+               <el-form-item 
+                    prop="pass"
+                    :rules="[{required:true, message:'密码不能为空', trigger: 'blur'}]">
                    <span>密码</span>
                     <el-input type="password" v-model="loginForm.pass" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
-                    <el-button @click="resetForm('loginForm')">重置</el-button>
+                    <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+                    <el-button @click="resetForm('loginForm')">取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -33,7 +38,7 @@ export default {
         };
         var validatePass = (rule, value, callback) => {
             if (value === '') {
-            callback(new Error('请输入密码'));
+                callback(new Error('请输入密码'));
             } else {
                 callback();
             }
@@ -55,24 +60,26 @@ export default {
         submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$axios.post('api/users/login',{
+                userName: this.loginForm.userName,
+                userPwd: this.loginForm.pass
+            }).then((res) => {
+                let response = res.data;
+                if(response.status == '0'){
+                    this.errorTip = false;
+                    this.$router.push({path: 'portal'});
+                } else {
+                    this.errorTip = true;
+                }
+            })
+            .catch((error) => {
+                console.log(error + 'error');
+            })
           } else {
             console.log('error submit!!');
             return false;
           }
         });
-        this.$axios.post('api/users/login',{
-            userName: this.loginForm.userName,
-            userPwd: this.loginForm.pass
-        }).then((res) => {
-            let response = res.data;
-            if(response.status == '0'){
-                this.errorTip = false;
-                this.$router.push({path: 'portal'});
-            } else {
-                this.errorTip = true;
-            }
-        })
       },
         resetForm(formName) {
             this.$refs[formName].resetFields();
@@ -89,7 +96,7 @@ export default {
     color: #fff;
     background-color: #000;
     border-radius: 10px;
-    background:rgba(0, 0, 0, 0.5);
+    background:rgba(0, 0, 0, 0.7);
     filter:Alpha(opacity=60); // ie兼容
     .enter{
         position: relative;

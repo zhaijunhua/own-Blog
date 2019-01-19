@@ -2,7 +2,6 @@ var express = require('express');
 var router = express();  //获取路由
 var mongoose = require('mongoose');
 var Blog = require('../models/blogs');
-
 // 连接数据库
 mongoose.connect('mongodb://127.0.0.1:27017/blogs');
 
@@ -18,13 +17,13 @@ mongoose.connection.on("disconnected", function() {
 });
 
 //实现路由,next 继续往后执行
-router.get("/", function(req,res,next) {
+router.get("/intro", function(req,res,next) {
     var page = req.param('page');
     let pageSize = parseInt(req.param('pageSize'));   // 下面的LIMIT必须是数字，在这里返回的是字符串，所以需要进行转换
     var sort = req.param('sort');   // 获取前端的参数
     let skip = (page-1) * pageSize;
     let params = {};
-    let blogsList = Blog.find(params).skip(params).skip(skip).limit(pageSize);
+    let blogsList = Blog.find(params, 'blogTitle blogTime introduce category').skip(params).skip(skip).limit(pageSize);
     blogsList.sort({'blogId': sort});  // 1是升序，-1是降序
     // 业务代码
     // 查找数据
@@ -37,11 +36,80 @@ router.get("/", function(req,res,next) {
         } else {
             res.json({
                 status: '1',
-                msg: '',
+                msg: 'success',
                 result: {
                     count: doc.length,
                     list: doc
                 }
+            })
+        }
+    })
+});
+
+router.post('/addBlog', function(req, res, next) {
+    let newBlog = new Blog({
+        blogTitle: req.body.blogTitle,
+        category: req.body.category,
+        introduce: req.body.introduce,
+        blogContent: req.body.blogContent
+    });
+    newBlog.save(function(err, doc) {
+        if(err) {
+            return res.json({
+                status: '00000',
+                msg: err.message
+            })
+        }
+        res.json({
+            status: '10001',
+            data: doc,
+            msg: 'success'
+        })
+    });
+});
+
+router.get('/mainBlog',function(req, res, next) {
+    var id = req.query.id;
+    var objId = mongoose.Types.ObjectId(id);
+    var param = {
+        _id: objId
+    };
+    console.log(param);
+    Blog.find(param, function(err, doc) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message
+            });
+        } else {
+            res.json({
+                status: '10001',
+                msg: 'success',
+                result: {
+                    list: doc
+                }
+            })
+        }
+    })
+});
+
+router.post('/deleteBlog', function(req, res, next) {
+    var id = req.body.id;
+    var objId = mongoose.Types.ObjectId(id);
+    var param = {
+        _id: objId
+    };
+    Blog.findOneAndRemove(param, function(err, doc) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message,
+            })
+        } else {
+            res.json({
+                status: '10001',
+                msg: 'delete success',
+                result: doc
             })
         }
     })

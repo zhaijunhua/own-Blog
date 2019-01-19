@@ -12,6 +12,7 @@ var app = express();
 var users = require('./routes/users');
 var blogs = require('./routes/blogs');
 var sentences = require('./routes/sentences');
+var messageboard = require('./routes/messageboard');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -25,9 +26,25 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(function(req, res, next) {  // 登录拦截，一些功能必须先进行登录之后才能使用
+//   if (req.cookies.userId) {
+//     next();
+//   } else {
+//     if (req.originalUrl === 'api/users/login' || req.originalUrl === 'api/users/logout') {
+//       next();
+//     }  else {
+//       res.json({
+//         status: '10011',
+//         msg: '当前未登录',
+//         result: ''
+//       })
+//     }
+//   }
+// });
 app.use('/blogs',blogs);
 app.use('/sentences', sentences);
 app.use('/users', users);
+app.use('/messageboard', messageboard);
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -36,7 +53,8 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', users);
 app.get('/blogs',blogs);
-app.get('/sentences', sentences)
+app.get('/sentences', sentences);
+app.get('/messageboard', messageboard);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
