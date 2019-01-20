@@ -11,6 +11,7 @@ const blogarticle = resolve => require(['../components/article/index.vue'], reso
 const aboutme = resolve => require(['../components/about/index.vue'], resolve);
 const sentence = resolve => require(['../components/sentence/index.vue'], resolve);
 const mesboard = resolve => require(['../components/mesboard/index.vue'], resolve);
+const blogdetail = resolve => require(['../components/blogdetail/index.vue'], resolve);
 Vue.use(Router);
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/mesboard',
       name: 'mesboard',
       component: mesboard
+    },
+    {
+      path: '/blogdetail/:id',
+      name: 'blogdetail',
+      component: blogdetail
     }
   ]
 });

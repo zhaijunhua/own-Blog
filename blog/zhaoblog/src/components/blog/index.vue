@@ -4,13 +4,11 @@
             v-infinite-scroll="loadMore" 
             infinite-scroll-disabled="busy" 
             infinite-scroll-distance="10">
-            <div class="content-card" v-for="items in blog" :key="items.blogId">
+            <div class="content-card" v-for="(items,index) in blog" :key="items.blogId">
                 <p class="blogTitle">{{items.blogTitle}}</p>
                 <span class="upTime">{{items.blogTime}}</span>
-                <p class="des">{{items.blogContent}}</p>
-                <!-- <div v-html="compiledMarkdown">
-                    {{items.blogContent}}
-                </div> -->
+                <p class="des">{{items.introduce}}</p>
+                <el-button @click="viewdetail(index)">查看详情</el-button>
             </div>
             <div class="more" v-show="isMore">加载更多...</div>
             <div class="more" v-show="noMore"></div>
@@ -18,6 +16,7 @@
     </div>
 </template>
 <script>
+import formatDate from '../../util/date.js'
 export default {
     name: 'blog',
     props: {
@@ -41,20 +40,6 @@ export default {
         };
     },
     computed: {
-        // compiledMarkdown() {
-        //     let blogContent = this.blog[0].blogContent;
-        //     console.log('具体内容' + blogContent);
-        //     console.log('解析' + blogContent);
-        //     return this.marked(blogContent || '', {
-        //         gfm: true,
-        //         tables: true,
-        //         breaks: false,
-        //         pedantic: false,
-        //         sanitize: false,
-        //         smartLists: true,
-        //         smartypants: false
-        //     });
-        // }
     },
     mounted() {
     },
@@ -65,7 +50,7 @@ export default {
                 pageSize: 3,
                 sort: 1
             };
-            let url = 'api/blogs';
+            let url = 'api/blogs/intro';
            if (params) {
                  let paramsArray = [];
                 Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]));
@@ -103,8 +88,20 @@ export default {
                 this.page++;
                 this.getMessage(true);
             },1000)
+        },
+        viewdetail(index) {
+            let blogId = this.blog[index]._id;
+            console.log(this.blog[index]._id);
+            this.$router.push({name: 'blogdetail', params:{type: 'add', id: blogId}});
         }
     }
+    // filters: {
+    //     formatDate(time) {
+    //         var date =new Date(time);
+    //         return formatDate(date, 'yyyy年MM月dd日');
+    //     }
+    // },
+
 };
 </script>
 <style lang="scss" scoped>

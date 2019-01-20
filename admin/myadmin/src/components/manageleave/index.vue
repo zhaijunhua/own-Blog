@@ -77,7 +77,7 @@ export default {
         }
     },
     filters: {
-        formatDate (time) {
+        formatDate(time) {
             let date =new Date(time);
             return formatDate(date, 'yyyy年MM月dd日');
         }
