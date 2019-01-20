@@ -7,6 +7,7 @@ import editmyself from '../components/editmyself/index';
 import addsentence from '../components/addsentence/index';
 import writeblog from '../components/writeblog/index';
 import manageblog from '../components/manageblog/index';
+import manageleave from '../components/manageleave/index';
 Vue.use(Router);
 
 export default new Router({
@@ -50,6 +51,11 @@ export default new Router({
           path: '/manageBlog',
           name: 'manageBlog',
           component: manageblog
+        },
+        {
+          path: '/manageleave',
+          name: 'manageleave',
+          component: manageleave
         }
       ]
     }

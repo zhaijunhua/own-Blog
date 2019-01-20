@@ -59,4 +59,25 @@ router.get('/getleaveMessage', function(req, res, next) {
         }
     })
 });
+ router.post('/deleteLeave', function(req, res, next){
+     var id = req.body.id;
+     var findId = mongoose.Types.ObjectId(id);
+     var param = {
+         _id: findId
+     };
+     Leavemessage.findOneAndRemove(param, function(err, doc) {
+         if(err) {
+             res.json({
+                 status: '00000',
+                 msg: err.message
+             });
+         } else {
+             res.json({
+                status: '10001',
+                msg: 'success',
+                result: doc
+             });
+         }
+     });
+ });
 module.exports = router;
