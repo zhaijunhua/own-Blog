@@ -33,6 +33,10 @@
                              <i class="el-icon-edit-outline"></i>
                              管理留言
                         </el-menu-item>
+                        <el-menu-item index="/manageSentence">
+                            <i class="el-icon-edit-outline"></i>
+                            句子管理
+                        </el-menu-item>
                         <el-menu-item index="5">
                             <i class="el-icon-remove-outline"></i>
                             <span slot="title" @click="logout">注销</span>

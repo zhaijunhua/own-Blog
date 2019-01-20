@@ -18,7 +18,7 @@ mongoose.connection.on("disconnected", function() {
 
 routers.post('/addSentence', function(req, res) {
     let newSentence = new Sentence({
-        sentenceContenet: req.body.sentenceContent,
+        sentenceContent: req.body.sentenceContent,
         translate: req.body.translate,
         author: req.body.author,
         category: req.body.category,
@@ -39,21 +39,21 @@ routers.post('/addSentence', function(req, res) {
     });
 });
 routers.get('/', function(req,res, next) {
-    var cate = req.query.cate;
+    // var cate = req.query.cate;
     // 进行判断
-    var param = {};
-    var cateNumber1 = '';
-    if(cate != '0'){
-        switch (cate) {
-            case '1': cateNumber1= 1; break;
-            case '2': cateNumber1= 2; break;
-        }
-        param = {
-            category: cateNumber1
-        }
-        console.log(param);
-    }
-    Sentence.find(param, function(err, doc) {
+    // var param = {};
+    // var cateNumber1 = '';
+    // if(cate != '0'){
+    //     switch (cate) {
+    //         case '1': cateNumber1= 1; break;
+    //         case '2': cateNumber1= 2; break;
+    //     }
+    //     param = {
+    //         category: cateNumber1
+    //     }
+    //     console.log(param);
+    // }
+    Sentence.find({}, function(err, doc) {
         if(err) {
             res.json({
                 status: 0,
@@ -67,9 +67,30 @@ routers.get('/', function(req,res, next) {
                     count: doc.length,
                     list: doc
                 }
-            })
+            });
         }
-    })
+    });
 });
 
+routers.post('/deleteSentence', function(req, res, next) {
+    let id = req.body.id;
+    let sentenceId = mongoose.Types.ObjectId(id);
+    let param = {
+        _id: sentenceId
+    };
+    Sentence.findOneAndRemove(param, function(err, doc) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message
+            });
+        } else {
+            res.json({
+                status: '10001',
+                msg: 'success',
+                result: doc
+            });
+        }
+    });
+});
 module.exports = routers;
