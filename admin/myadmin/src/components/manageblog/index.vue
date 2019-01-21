@@ -73,10 +73,13 @@ export default {
         },
         handleEdit(index, row) {
             console.log(index, row);
+            let blogId = this.blogData[index]._id
+            this.$router.push({name: 'editblog', params:{type: 'add', id: blogId}});
+            console.log(blogId);
         },
         handleDelete(index, row) {
             console.log('id' + this.blogData[index]._id);
-            this.$axios.post('/api/blogs//deleteBlog', {
+            this.$axios.post('/api/blogs/deleteBlog', {
                 id: this.blogData[index]._id
             })
             .then((response) => {

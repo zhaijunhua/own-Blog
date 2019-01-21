@@ -44,7 +44,6 @@ export default {
                 })
                 .then((response) => {
                     let res = response.data;
-                    console.log("sccessa");
                     if (res.status === '1') {
                        console.log('success');
                     }

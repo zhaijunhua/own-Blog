@@ -115,5 +115,37 @@ router.post('/deleteBlog', function(req, res, next) {
     })
 });
 
+router.post('/updateBlog', function(req, res, next) {
+    let id = req.body.id;
+    let blogId = mongoose.Types.ObjectId(id);
+    let blogTitle = req.body.blogTitle;
+    let blogContent = req.body.blogContent;
+    let category = req.body.category;
+    let introduce = req.body.introduce;
+    let param = {
+        _id: blogId
+    };
+    let data = {
+        blogTitle: blogTitle,
+        blogContent: blogContent,
+        category: category,
+        introduce: introduce
+    }
+    Blog.findOneAndUpdate(param, data, function(err, doc) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message,
+                result: 'error'
+            });
+        } else {
+            res.json({
+                status: '10001',
+                message: 'success',
+                result: doc
+            });
+        }
+    });
+});
 module.exports = router; // 必须进行输出
 

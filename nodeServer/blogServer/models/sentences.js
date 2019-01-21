@@ -2,7 +2,7 @@ var mongoose = require('mongoose'); // 引入数据库
 var Schema = mongoose.Schema;
 
 var sentencesSchema = new Schema({
-    'sentenceContenet': String,
+    'sentenceContent': String,
     'translate': String,
     'author': String,
     'category': String,
