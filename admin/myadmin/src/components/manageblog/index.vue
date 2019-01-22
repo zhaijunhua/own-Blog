@@ -7,7 +7,7 @@
             label="日期"
             prop="blogTime"
             >
-                <template scope="scope">
+                <template slot-scope="scope">
                     <p>{{scope.row.blogTime | formatDate}}</p>
                 </template>
             </el-table-column>
