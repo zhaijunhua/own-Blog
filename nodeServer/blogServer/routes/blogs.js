@@ -193,5 +193,25 @@ router.post('/updateBlog', function(req, res, next) {
         }
     });
 });
+
+// 模糊查询
+router.post('/search', function(req, res, next) {
+    let content = req.query.searchContent;
+    Blog.find({blogTitle: {'$regex': content}}, function(err, data) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message,
+                result:'error'
+            });
+        } else {
+            res.json({
+                status: '10001',
+                msg: 'success',
+                result: data
+            });
+        }
+    });
+});
 module.exports = router; // 必须进行输出
 

@@ -9,6 +9,14 @@
             <el-button @click="getclassify('6')">node</el-button>
             <el-button @click="getclassify('7')">其他</el-button>
         </div>
+        <el-input
+            placeholder="请输入内容"
+            suffix-icon="el-icon-search"
+            v-model="searchContent"
+            class="search"
+            @click="search">
+        </el-input>
+        <el-button @click="search">搜索</el-button>
         <div class="result-content">
             <div class="content-card" v-for="(items,index) in result" :key="items.blogId">
                 <p class="blogTitle">{{items.blogTitle}}</p>
@@ -26,7 +34,8 @@ export default {
     name: 'blogarticle',
     data() {
         return {
-            result: []
+            result: [],
+            searchContent: ''
         };
     },
     methods: {
@@ -42,6 +51,17 @@ export default {
                 .catch((error) => {
                     console.log(error + 'error');
                 });
+        },
+        search() {
+            this.$axios.post('/api/blogs/search',{
+                searchContent: this.searchContent 
+            })
+            .then((response) => {
+                console.log('success' + JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(error + 'error');
+            })
         }
     }
 }
