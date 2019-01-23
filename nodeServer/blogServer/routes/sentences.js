@@ -39,21 +39,20 @@ routers.post('/addSentence', function(req, res) {
     });
 });
 routers.get('/', function(req,res, next) {
-    // var cate = req.query.cate;
+    var cate = req.query.cate;
     // 进行判断
-    // var param = {};
-    // var cateNumber1 = '';
-    // if(cate != '0'){
-    //     switch (cate) {
-    //         case '1': cateNumber1= 1; break;
-    //         case '2': cateNumber1= 2; break;
-    //     }
-    //     param = {
-    //         category: cateNumber1
-    //     }
-    //     console.log(param);
-    // }
-    Sentence.find({}, function(err, doc) {
+    var param = {};
+    var cateNumber = '';
+    if(cate != '0'){
+        switch (cate) {
+            case '1': cateNumber = 1; break;
+            case '2': cateNumber = 2; break;
+        };
+        param = {
+            category: cateNumber
+        };
+    }
+    Sentence.find(param, function(err, doc) {
         if(err) {
             res.json({
                 status: 0,

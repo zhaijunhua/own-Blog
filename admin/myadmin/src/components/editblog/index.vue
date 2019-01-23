@@ -126,7 +126,7 @@ export default {
             if (this.blogContent === '' || this.content === '') {
                 alert("句子内容内容不能为空");
             } else {
-                console.log(this.blogTitle);
+            
                 this.$axios.post('/api/blogs//updateBlog', {
 
                     blogTitle: this.blogContent.blogTitle,

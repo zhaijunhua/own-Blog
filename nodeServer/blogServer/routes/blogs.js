@@ -46,6 +46,52 @@ router.get("/intro", function(req,res,next) {
     })
 });
 
+// 实现分类
+router.get("/classify", function(req,res,next) {
+    let category = req.query.category;
+    // var page = req.param('page');
+    // let pageSize = parseInt(req.param('pageSize'));   // 下面的LIMIT必须是数字，在这里返回的是字符串，所以需要进行转换
+    // let skip = (page-1) * pageSize;
+    // let params = {};
+    // 业务代码
+    // 分类条件参数
+    let param = {};
+    let cate = '';
+    if(category != '') {
+        switch (category) { 
+            case '1': cate = 'html'; break;
+            case '2': cate = 'css'; break;
+            case '3': cate = 'js'; break;
+            case '4': cate = 'vue'; break;
+            case '5': cate = 'react'; break;
+            case '6': cate = 'node'; break;
+            case '7': cate = 'other'; break;
+        };
+        param = {
+            category: cate
+        };
+        console.log(param);
+    }
+    // 查找数据
+    // let blogsList = Blog.find(param, 'blogTitle blogTime introduce category');
+    Blog.find(param, 'blogTitle blogTime introduce category', function(err,doc) {
+        if(err) {
+            res.json({
+                status: '00000',
+                msg: err.message
+            });
+        } else {
+            res.json({
+                status: '10001',
+                msg: 'success',
+                result: {
+                    count: doc.length,
+                    list: doc
+                }
+            })
+        }
+    })
+});
 router.post('/addBlog', function(req, res, next) {
     let newBlog = new Blog({
         blogTitle: req.body.blogTitle,

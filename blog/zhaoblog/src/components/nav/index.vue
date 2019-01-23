@@ -10,7 +10,7 @@
                 @select="handleSelect"
                 router>
                 <el-menu-item index="/">首页</el-menu-item>
-                <el-menu-item index="/blogarticle">我的文章</el-menu-item>
+                <el-menu-item index="/blogarticle">分类查找</el-menu-item>
                 <el-menu-item index="/sentence">句子</el-menu-item>
                 <el-menu-item index="/mesboard">留言板</el-menu-item>
                 <el-menu-item index="/about">关于</el-menu-item>
@@ -32,7 +32,7 @@ export default {
     },
     methods: {
       handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+        
       }
     }
 }
