@@ -18,7 +18,7 @@
         </el-input>
         <el-button @click="search">搜索</el-button>
         <div class="result-content">
-            <div class="content-card" v-for="(items,index) in result" :key="items.blogId">
+            <div class="content-card" v-for="(items,index) in result" :key="items._id">
                 <p class="blogTitle">{{items.blogTitle}}</p>
                 <p class="des">{{items.introduce}}</p>
                 <span class="upTime">{{items.blogTime}}</span>
@@ -53,11 +53,13 @@ export default {
                 });
         },
         search() {
+            console.log(this.searchContent);
             this.$axios.post('/api/blogs/search',{
                 searchContent: this.searchContent 
             })
             .then((response) => {
-                console.log('success' + JSON.stringify(response.data));
+                this.result = response.data.result.list;
+                console.log('success' + JSON.stringify(response.data.result.list));
             })
             .catch((error) => {
                 console.log(error + 'error');

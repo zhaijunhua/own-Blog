@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import './util/background.js';
+// import './util/background.js';
 import navbar from './components/nav/index.vue';
 export default {
   name: 'App',

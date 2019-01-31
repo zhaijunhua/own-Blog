@@ -196,8 +196,8 @@ router.post('/updateBlog', function(req, res, next) {
 
 // 模糊查询
 router.post('/search', function(req, res, next) {
-    let content = req.query.searchContent;
-    Blog.find({blogTitle: {'$regex': content}}, function(err, data) {
+    let content = new RegExp(req.body.searchContent, 'i'); //i不区分大小写
+    Blog.find({introduce: {$regex: content}}, 'blogTitle category introduce blogTime',null, function(err, data) {
         if(err) {
             res.json({
                 status: '00000',
@@ -208,7 +208,9 @@ router.post('/search', function(req, res, next) {
             res.json({
                 status: '10001',
                 msg: 'success',
-                result: data
+                result: {
+                    list: data
+                }
             });
         }
     });
