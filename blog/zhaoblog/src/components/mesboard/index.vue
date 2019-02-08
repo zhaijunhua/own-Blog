@@ -7,6 +7,7 @@
                     <el-input placeholder="留个名字吧^v^" v-model="form.yourName">昵称</el-input>
                 </el-form-item>
                 <el-form-item>
+                    <span>留言内容</span>
                     <el-input
                         v-model="form.leaveMessage"
                         label="留言内容"
@@ -21,10 +22,13 @@
                 </el-form-item>
             </el-form>
         </div>
-        <div v-for="items in message" :key="items._id">
-            {{items.leavecontent}}
-            {{items.leaveperson}}
-        </div>
+        <div class="leavecontent">
+            <div class="leaveList" v-for="items in message" :key="items._id">
+                <span>{{items.leaveperson}}</span>&nbsp;&nbsp;&nbsp;说：
+                   <p>{{items.leavecontent}}</p>
+                   <hr/>
+            </div>
+        </div>Z
     </div>
 </template>
 <script>
@@ -68,20 +72,20 @@ export default {
             });    
         },
         returnMessage() {
-            let params = {
-                page: this.page,
-                pageSize: 5,
-            };
+            // let params = {
+            //     page: this.page,
+            //     pageSize: 5,
+            // };
             let url = 'api/messageboard/getleaveMessage';
-           if (params) {
-                 let paramsArray = [];
-                Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]));
-                if (url.search(/\?/) === -1) {
-                    url += '?' + paramsArray.join('&');
-                } else {
-                    url += '&' + paramsArray.join('&');
-                }
-            }
+        //    if (params) {
+        //          let paramsArray = [];
+        //         Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]));
+        //         if (url.search(/\?/) === -1) {
+        //             url += '?' + paramsArray.join('&');
+        //         } else {
+        //             url += '&' + paramsArray.join('&');
+        //         }
+        //     }
             this.$axios.get(url)
                 .then((res) => {
                     if(res.data.status === '1') {
@@ -109,8 +113,32 @@ export default {
                     margin: 0 auto;
                     margin-bottom: 20px;
                 }
+                span{
+                    color: #f2f2f2;
+                    font-size: 20px;
+                }
             }
         }
+    }
+    .leavecontent{
+        background: rgba($color: #203141, $alpha: 0.7);  
+        border-radius: 10px;      
+        .leaveList{
+        margin-top: 2px;
+        border-radius: 5px;
+        span{
+            color: #f2f2f2;
+            font-size: 18px;
+            width: 150px;
+        }
+        P{
+            margin-left: 100px;
+            line-height: 20px;
+            font-size: 16px;
+            color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
     }
 }
 </style>
