@@ -2,6 +2,7 @@ var express = require('express');
 var router = express();  //获取路由
 var mongoose = require('mongoose');
 var User = require('../models/users');
+var Personal = require('../models/aboutme');
 mongoose.connect('mongodb://127.0.0.1:27017/blogs');
 
 mongoose.connection.on("connected", function() {
@@ -54,6 +55,43 @@ router.post('/logout', function(req, res, next) {
     status: '0',
     mas: '',
     result: ''
+  });
+});
+// 获取个人信息
+router.get('/personalmessage', function(req, res, next) {
+  Personal.find({}, function(err, data) {
+    if(err) {
+      res.json({
+        status: '00000',
+        msg: err.message,
+        result: 'ERROR'
+      });
+    } else {
+      res.json({
+        status: '10001',
+        msg: 'success',
+        result: data
+      })
+    }
+  })
+});
+// 修改个人信息
+router.post('editMessage', function(req, res, next){
+  let personalMessage = req.body.personalMessage;
+  Personal.findOneAndUpdate({resume:personalMessage}, function(err, data){
+    if(err) {
+      res.json({
+        status: '000000',
+        msg: err.message,
+        result: 'error'
+      });
+    } else {
+      res.json({
+        status: '10001',
+        message: 'success',
+        result: data
+      });
+    }
   });
 });
 module.exports = router;
