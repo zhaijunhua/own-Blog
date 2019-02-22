@@ -28,7 +28,7 @@ router.post('/login',function(req,res,next){
         });
     } else {
       res.cookie('userId', doc.userId, {
-        signed: true, // 加密
+        // signed: true, // 加密
         path: '/',  // 将登陆获取的值=cookie值保存
         maxAge: 1000*60*60 // cookie保存时间,这里是一个小时
       });

@@ -85,7 +85,11 @@ export default {
     height: 100%;
     background-color: #545c64;
     .el-row{
+        width: 14%;
         border: none;
+        position: fixed;
+        height:100%;
+        background-color: #545c64;
         .el-col{
         border: none;
         width: 100%;
