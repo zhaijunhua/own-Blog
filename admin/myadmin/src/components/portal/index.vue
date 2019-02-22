@@ -4,7 +4,9 @@
             <Navlist/>
         </div>
         <div class="container">
-            <router-view/>
+            <div class="content">
+                <router-view/>
+            </div>
         </div>
     </div>
 </template>
@@ -24,13 +26,17 @@ export default {
     display: flex;
     flex-flow: row;
     .leftbar{
-        width: 185px;
+        width: 175px;
         background-color: #545c64;
     }
     .container{
         flex: 1;
         margin-left: 0px;
         background: #ffffff;
+        .content{
+            width: 90%;
+            margin: 0 auto;
+        }
     }
 }
 </style>

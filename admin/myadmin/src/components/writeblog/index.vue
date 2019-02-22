@@ -5,8 +5,8 @@
                 <span class="title">标题：</span>
                 <el-input v-model="blogTitle" placeholder="请输入博客名称" class="editTitle"></el-input>
             </div>
-            <div>
-                <span>类别</span>
+            <div class="choose">
+                <span>类别：</span>
                 <el-select v-model="category" placeholder="请选择类别">
                    <el-option
                         v-for="item in options"
@@ -17,8 +17,8 @@
                     </el-option>
                 </el-select>
             </div>
-            <div>
-                <span>文章描述</span>
+            <div class="des">
+                <span>文章描述:</span><br/><br/>
                 <el-input
                 type="textarea"
                 :rows="2"
@@ -28,8 +28,10 @@
                 maxlength="100">
                 </el-input>
             </div>
-            <mavon-editor v-model="content"/>
-            <div class="save">
+            <div class="content">
+                <mavon-editor v-model="content"/>
+            </div>
+            <div class="saveblog">
                 <el-button @click="save">保存</el-button>
             </div>
         </div>
@@ -147,8 +149,23 @@ export default {
                 flex: 1;
             }
         }
-        .v-note-wrapper{
+        .choose{
+            margin-top: 20px;
+        }
+        .des{
+            margin-top: 20px;
+        }
+        .content{
+            margin-top: 20px;
+            .v-note-wrapper{
             min-height: 500px;
+        }
+        .saveblog{
+            margin-top: 20px;
+            .el-button{
+                margin-top: 20px;
+            }
+        }
         }
     }
 }

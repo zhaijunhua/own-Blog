@@ -2,11 +2,11 @@
     <div class="editBlog">
         <div class="editContent">
             <div class="edit">
-                <span class="title">标题：</span>
+                <span class="title">标题</span>
                 <el-input v-model="blogContent.blogTitle" placeholder="请输入博客名称" class="editTitle"></el-input>
             </div>
-            <div>
-                <span>类别</span>
+            <div class="choose">
+                <span class="thecate">类别：</span>
                 <el-select v-model="blogContent.category" placeholder="请选择类别">
                    <el-option
                         v-for="item in options"
@@ -18,7 +18,7 @@
                 </el-select>
             </div>
             <div>
-                <span>文章描述</span>
+                <span>文章描述: </span>
                 <el-input
                 type="textarea"
                 :rows="2"
@@ -28,9 +28,11 @@
                 maxlength="100">
                 </el-input>
             </div>
-            <mavon-editor v-model="blogContent.blogContent"/>
+            <div class="content">
+                <mavon-editor v-model="blogContent.blogContent"/>
+            </div>
             <div class="save">
-                <el-button @click="update">保存</el-button>
+                <el-button @click="update">保存信息</el-button>
             </div>
         </div>
     </div>
@@ -151,14 +153,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .editBlog{
-    width: 90%;
     vertical-align: middle;
     position: relative;
     top: 20px;
+    width: 90%;
     .editContent{
         margin: 0 auto;
-        width: 84%;
+        min-width: 80%;
         min-height: 600px;
+        margin-left: 120px;
         .edit{
     
             display: flex;
@@ -168,6 +171,13 @@ export default {
             .editTitle{
                 flex: 1;
             }
+        }
+        .choose{
+            position: relative;
+            margin-top:10px;
+        }
+        .content{
+            margin-top: 20px;
         }
         .v-note-wrapper{
             min-height: 500px;
