@@ -7,8 +7,8 @@
             
             <div>
                 <el-radio-group v-model="cate">
-                    <el-radio :label="1">中文</el-radio>
-                    <el-radio :label="2">英文</el-radio>
+                    <el-radio :label="1">摘抄</el-radio>
+                    <el-radio :label="2">记录</el-radio>
                 </el-radio-group>
 
                 <el-input type="textarea" v-model="sentenceContent" placeholder="请输入内容"></el-input>

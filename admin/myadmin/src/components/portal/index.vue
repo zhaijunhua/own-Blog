@@ -1,13 +1,17 @@
 <template>
-    <div class="portal">   
-        <div class="leftbar">
-            <Navlist/>
-        </div>
-        <div class="container">
-            <div class="content">
-                <router-view/>
+    <div class="portal"> 
+        <el-container>
+            <div class="leftbar">
+                <Navlist/>
             </div>
-        </div>
+        </el-container>  
+        <el-main>
+            <div class="container">
+                <div class="content">
+                    <router-view/>
+                </div>
+            </div>
+        </el-main>
     </div>
 </template>
 <script>
@@ -25,17 +29,22 @@ export default {
     height: 100%;
     display: flex;
     flex-flow: row;
-    .leftbar{
-        width: 175px;
-        background-color: #545c64;
+        .el-container{
+            max-width: 15%;
+            .leftbar{
+            width: 175px;
+            background-color: #545c64;
+        }
     }
-    .container{
-        flex: 1;
-        margin-left: 0px;
-        background: #ffffff;
-        .content{
-            width: 90%;
-            margin: 0 auto;
+    .el-main{
+        padding-left: 0px;
+        .container{
+            flex: 1;
+            margin-left: 0px;
+            background: #ffffff;
+            .content{
+                width: 100%;
+            }
         }
     }
 }

@@ -76,9 +76,17 @@ router.get('/personalmessage', function(req, res, next) {
   })
 });
 // 修改个人信息
-router.post('editMessage', function(req, res, next){
-  let personalMessage = req.body.personalMessage;
-  Personal.findOneAndUpdate({resume:personalMessage}, function(err, data){
+router.post('/editMessage', function(req, res, next){
+  let userId = req.body.id;
+  let id = mongoose.Types.ObjectId(userId);
+  let resume = req.body.resume;
+  let param = {
+    _id: id
+  };
+  let data = {
+    resume: resume 
+  }
+  Personal.findOneAndUpdate(param, data, function(err, data){
     if(err) {
       res.json({
         status: '000000',

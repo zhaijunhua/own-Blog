@@ -7,17 +7,50 @@
                     type="textarea"
                     :rows="5"
                     placeholder="请输入内容"
-                    v-model="textarea"
-                    autosize>
+                    v-model="personalMessage.resume"
+                    :autosize="{ minRows: 5, maxRows: 10}">
                 </el-input>
-                <el-button>保存修改</el-button>
+                <el-button @click="saveUpdate">保存修改</el-button>
             </el-form-item>
         </el-form>
     </div>
 </template>
 <script>
 export default {
-    name: 'editmyself'
+    name: 'editmyself',
+    data() {
+        return {
+            personalMessage: []
+        };
+    },
+    mounted() {
+        this.getMessage();
+    },
+    methods: {
+        getMessage() {
+            this.$axios('/api/users/personalmessage')
+                .then((res) => {
+                    console.log(res.data.result[0]);
+                    if(res.data.status == '10001') {
+                        this.personalMessage = res.data.result[0];
+                    }
+                })
+                .catch((error) => {
+                    console.log(error + 'error');
+                })
+        },
+        saveUpdate() {
+            this.$axios.post('/api/users/editMessage', {
+                resume: this.personalMessage.resume,
+                id: this.personalMessage._id
+            })
+            .then((res) => {
+                if(this.status == '10001') {
+                    console.log(success);
+                }
+            })
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

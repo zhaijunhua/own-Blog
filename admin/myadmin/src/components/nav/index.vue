@@ -19,7 +19,7 @@
                         </el-menu-item>
                         <el-menu-item index="/addsentence">
                             <i class="el-icon-edit"></i>
-                            <span slot="title">写句子</span>
+                            <span slot="title">每日一句</span>
                         </el-menu-item>
                         <el-menu-item index="/editmyself">
                             <i class="el-icon-setting"></i>
@@ -85,9 +85,8 @@ export default {
     height: 100%;
     background-color: #545c64;
     .el-row{
-        width: 13%;
         border: none;
-        position: fixed;
+       /* position: fixed;*/
         height:100%;
         background-color: #545c64;
         .el-col{

@@ -124,12 +124,11 @@ export default {
              })
         },
         update() {
-            
             if (this.blogContent === '' || this.content === '') {
                 alert("句子内容内容不能为空");
             } else {
             
-                this.$axios.post('/api/blogs//updateBlog', {
+                this.$axios.post('/api/blogs/updateBlog', {
 
                     blogTitle: this.blogContent.blogTitle,
                     blogContent: this.blogContent.blogContent,
@@ -159,7 +158,7 @@ export default {
     width: 90%;
     .editContent{
         margin: 0 auto;
-        min-width: 80%;
+        min-width: 90%;
         min-height: 600px;
         margin-left: 120px;
         .edit{
