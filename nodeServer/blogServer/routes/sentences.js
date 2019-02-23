@@ -19,7 +19,6 @@ mongoose.connection.on("disconnected", function() {
 routers.post('/addSentence', function(req, res) {
     let newSentence = new Sentence({
         sentenceContent: req.body.sentenceContent,
-        translate: req.body.translate,
         author: req.body.author,
         category: req.body.category,
         addTime: req.body.addTime ? new Date():new Date(parseInt(req.body.date))
@@ -51,6 +50,8 @@ routers.get('/', function(req,res, next) {
         param = {
             category: cateNumber
         };
+    } else {
+        param = {}
     }
     Sentence.find(param, function(err, doc) {
         if(err) {

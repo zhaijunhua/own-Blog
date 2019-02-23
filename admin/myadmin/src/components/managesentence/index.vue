@@ -66,16 +66,17 @@ export default {
         };
     },
     mounted() {
-        this.sentenceMessage();
+        this.sentenceMessage('0');
 
     },
     methods: {
-        sentenceMessage(){
-           this.$axios.get('/api/sentences')
+        sentenceMessage(cate){
+        console.log(cate);
+           this.$axios.get('/api/sentences' + '?cate=' + cate)
            .then((response) => {
                 if(response.data.status == '1') {
                     this.sentenceData = response.data.result.list;
-                    console.log(JSON.stringify(this.sentenceData));
+                   // console.log(JSON.stringify(this.sentenceData));
                 }
             })
             .catch((error) => {
