@@ -37,7 +37,7 @@
                             <i class="el-icon-edit-outline"></i>
                             句子管理
                         </el-menu-item>
-                        <el-menu-item index="5">
+                        <el-menu-item index="/login">
                             <i class="el-icon-remove-outline"></i>
                             <span slot="title" @click="logout">注销</span>
                         </el-menu-item>
@@ -63,10 +63,11 @@ export default {
     },
     methods: {
         logout() {
-            this.$axios.post('api/users/logout')
+            this.$axios.post('/api/users/logout')
                 .then((response) => {
                     let res = response.data;
                     if (res.status === '0') {
+                        console.log(res);
                         this.nickName = ''
                          this.$router.push({path: '/'});
                     }

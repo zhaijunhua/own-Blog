@@ -22,6 +22,7 @@
 </template>
 <script>
 export default {
+    inject: ['reload'],
     name: 'addsentence',
     data() {
         return {
@@ -47,6 +48,7 @@ export default {
                     let res = response.data;
                     if (res.status === '1') {
                        console.log('success');
+                       this.reload();
                     }
                 })
                 .catch((error) => {

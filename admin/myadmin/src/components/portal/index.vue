@@ -8,7 +8,7 @@
         <el-main>
             <div class="container">
                 <div class="content">
-                    <router-view/>
+                    <router-view v-if="isRouterAlive"/>
                 </div>
             </div>
         </el-main>
@@ -18,10 +18,27 @@
 import Navlist from '../nav/index.vue';
 export default {
     name: 'Portal',
+    provide() {
+        return {
+            reload: this.reload
+        };
+    },
+    data() {
+        return {
+            isRouterAlive: true
+        };
+    },
     components: {
         Navlist
     },
-    methods: {}
+    methods: {
+        reload() {
+            this.isRouterAlive = false;
+            this.$nextTick(function() {
+                this.isRouterAlive = true;
+            })
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

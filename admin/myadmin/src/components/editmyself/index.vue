@@ -17,6 +17,7 @@
 </template>
 <script>
 export default {
+    inject: ['reload'],
     name: 'editmyself',
     data() {
         return {
@@ -47,6 +48,7 @@ export default {
             .then((res) => {
                 if(this.status == '10001') {
                     console.log(success);
+                    this.reload();
                 }
             })
         }

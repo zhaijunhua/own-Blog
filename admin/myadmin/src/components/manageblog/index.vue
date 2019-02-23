@@ -48,6 +48,7 @@
 <script>
 import {formatDate} from '../../util/date.js';
 export default {
+    inject: ['reload'],
     name: 'manageBlog',
     data() {
         return {
@@ -84,6 +85,7 @@ export default {
             })
             .then((response) => {
                 if(response.data.status == '10001') {
+                    this.reload();
                     console.log('success' + JSON.stringify(response.data));
                 }
             })

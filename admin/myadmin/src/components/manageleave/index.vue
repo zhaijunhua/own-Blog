@@ -22,9 +22,6 @@
             <template slot-scope="scope">
                 <el-button
                 size="mini"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button
-                size="mini"
                 type="danger"
                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
@@ -35,6 +32,7 @@
 <script>
 import {formatDate} from '../../util/date.js';
 export default {
+    inject: ['reload'], // 刷新页面
     name: 'manageBlog',
     data() {
         return {
@@ -69,6 +67,7 @@ export default {
             .then((response) => {
                 if(response.data.status == '10001') {
                     console.log('success' + JSON.stringify(response.data));
+                    this.reload();
                 }
             })
             .catch((error) => {

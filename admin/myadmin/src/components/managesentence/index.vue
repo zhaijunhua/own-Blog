@@ -37,12 +37,6 @@
                         placeholder="请输入内容"
                         v-model="editData.sentenceContent">
                     </el-input>
-                    翻译解释<el-input
-                        type="textarea"
-                        :rows="2"
-                        placeholder="请输入内容"
-                        v-model="editData.translate">
-                    </el-input>
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="centerDialogVisible = false">取 消</el-button>
                         <el-button type="primary" @click="updateData">确 定</el-button>
@@ -56,6 +50,7 @@
 <script>
 import {formatDate} from '../../util/date.js';
 export default {
+    inject: ['reload'],
     name: 'manageSentence',
     data() {
         return {
@@ -105,6 +100,7 @@ export default {
             })
             .then((response) => {
                 if(response.data.status == '10001') {
+                    this.reload();
                     console.log('success' + JSON.stringify(response.data));
                 }
             })
@@ -130,8 +126,14 @@ export default {
                 category: this.editData.category
             })
                 .then((response) => {
-                    console.log('response');
-                });
+                    if(response.data.status == '10001') {
+                        console.log('success');
+                        this.reload();
+                    }
+                })
+                .catch((error) => {
+
+                })
         }
     },
     filters: {
