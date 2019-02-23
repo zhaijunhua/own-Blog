@@ -1,6 +1,6 @@
  <template>
      <div class="detail">
-        <div v-html="markdown">
+        <div v-html="markdown" class="article">
             {{detail.blogContent}}
         </div>
      </div>
@@ -47,6 +47,16 @@
  }
  </script>
  <style lang="scss" scoped>
- 
+ .detail{
+     background-color: 	#EBEBEB;
+     border-radius: 5px;
+     .article{
+         position: relative;
+         width: 95%;
+         margin: 0 auto;
+         padding-top: 10px;
+         padding-bottom: 20px;
+     }
+ }
  </style>
  

@@ -39,6 +39,7 @@
 </template>
 <script>
 export default {
+    inject: ['reload'],
     name: 'writeblog',
     data() {
         return {
@@ -98,6 +99,10 @@ export default {
                 }, {
                     category: 'node',
                     label: 'node',
+                }, 
+                {
+                    category: 'es6',
+                    label: 'es6'
                 }, {
                     category: 'other',
                     label: 'other'
@@ -119,7 +124,7 @@ export default {
                 .then((response) => {
                     let res = response.data;
                     if (res.status === '10001') {
-                       console.log('success' + JSON.stringify(res));
+                        this.reload();
                     }
                 })
                 .catch((error) => {

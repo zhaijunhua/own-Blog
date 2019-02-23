@@ -65,7 +65,8 @@ router.get("/classify", function(req,res,next) {
             case '4': cate = 'vue'; break;
             case '5': cate = 'react'; break;
             case '6': cate = 'node'; break;
-            case '7': cate = 'other'; break;
+            case '7': cate = 'es6'; break;
+            case '8': cate = 'other'; break;
         };
         param = {
             category: cate

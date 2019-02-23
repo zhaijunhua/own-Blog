@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <navbar/>
+    <div class="top-menu">
+      <navbar/>
+    </div>
     <div id="container">
       <router-view v-if="isRouterAlive"/>
     </div>
@@ -43,7 +45,9 @@ export default {
   margin: 0 auto;
   height: 100%;
   #container{
-    width: 72%;
+    position: relative;
+    top: 80px;
+    width: 80%;
     margin: 20px auto;
   }
 }

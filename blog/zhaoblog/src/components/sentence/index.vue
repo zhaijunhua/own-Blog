@@ -2,8 +2,8 @@
     <div class="my-sentence">
         <div>
             <el-button @click="sortSentence('0')">全部</el-button>
-            <el-button @click="sortSentence('1')">中文</el-button>
-            <el-button @click="sortSentence('2')">英文</el-button>
+            <el-button @click="sortSentence('1')">摘录</el-button>
+            <el-button @click="sortSentence('2')">记录</el-button>
         </div>
         <div v-for="item in sentenceMessage" :key="item.sentenceId">
             <h2>{{item.sentenceContenet}}</h2>

@@ -7,7 +7,8 @@
             <el-button @click="getclassify('4')">vue</el-button>
             <el-button @click="getclassify('5')">react</el-button>
             <el-button @click="getclassify('6')">node</el-button>
-            <el-button @click="getclassify('7')">其他</el-button>
+            <el-button @click="getclassify('7')">es6</el-button>
+            <el-button @click="getclassify('8')">其他</el-button>
         </div>
         <el-input
             placeholder="请输入内容"
